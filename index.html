@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Volt Guitars | Tienda de Guitarras Eléctricas</title>
+    <style>
+      :root {
+        --bg: #0d0d0f;
+        --bg-soft: #17171b;
+        --panel: #1d1d22;
+        --panel-2: #24242b;
+        --accent: #ff5a36;
+        --accent-2: #ff8f4d;
+        --text: #f5f5f5;
+        --muted: #b9b9c2;
+        --line: rgba(255,255,255,0.08);
+        --success: #27d17f;
+        --shadow: 0 18px 40px rgba(0,0,0,0.35);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: linear-gradient(180deg, var(--bg) 0%, #111217 100%);
+        color: var(--text);
+      }
+
+      a { text-decoration: none; color: inherit; }
+      img { max-width: 100%; display: block; }
+
+      .container {
+        width: min(1200px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      header {
+        background: rgba(13,13,15,0.9);
+        border-bottom: 1px solid var(--line);
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(8px);
+        z-index: 10;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 0;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+
+      .brand-mark {
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        box-shadow: var(--shadow);
+        font-size: 1.1rem;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .nav-links a:hover { color: var(--text); }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        border-radius: 999px;
+        padding: 12px 20px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .btn:hover { transform: translateY(-1px); }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        color: white;
+        box-shadow: 0 12px 22px rgba(255, 90, 54, 0.4);
+      }
+
+      .btn-secondary {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        color: var(--text);
+      }
+
+      .hero {
+        padding: 64px 0 32px;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 42px;
+        align-items: center;
+      }
+
+      .eyebrow {
+        display: inline-block;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,0.1);
+        background: rgba(255,255,255,0.03);
+        color: var(--muted);
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        font-size: clamp(2.8rem, 5vw, 5rem);
+        line-height: 1.02;
+        margin: 18px 0 18px;
+        letter-spacing: -0.05em;
+      }
+
+      .lead {
+        color: var(--muted);
+        font-size: 1.07rem;
+        line-height: 1.7;
+        max-width: 600px;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 14px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+      }
+
+      .trust {
+        display: flex;
+        gap: 32px;
+        margin-top: 28px;
+        flex-wrap: wrap;
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      .trust strong {
+        color: var(--text);
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 4px;
+      }
+
+      .guitar-visual {
+        position: relative;
+        min-height: 560px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .orb {
+        position: absolute;
+        width: 420px;
+        height: 420px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(255,145,82,0.6), rgba(255,90,54,0.08) 35%, rgba(13,13,15,0) 72%);
+        filter: blur(12px);
+      }
+
+      .guitar-card {
+        position: relative;
+        width: min(100%, 520px);
+        background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 20px;
+      }
+
+      .guitar-card img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+        border-radius: 18px;
+        background: #111;
+      }
+
+      .tag {
+        position: absolute;
+        left: 26px;
+        top: 26px;
+        background: rgba(13,13,15,0.75);
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .price-badge {
+        position: absolute;
+        right: 26px;
+        bottom: 26px;
+        background: rgba(255, 90, 54, 0.95);
+        color: white;
+        border-radius: 16px;
+        padding: 12px 18px;
+        box-shadow: 0 12px 30px rgba(255, 90, 54, 0.45);
+      }
+
+      .price-badge small {
+        display: block;
+        font-size: 0.7rem;
+        opacity: 0.82;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .price-badge strong {
+        font-size: 1.6rem;
+      }
+
+      .section {
+        padding: 40px 0;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: end;
+        gap: 16px;
+        margin-bottom: 24px;
+      }
+
+      .section-header h2 {
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin: 0;
+        letter-spacing: -0.04em;
+      }
+
+      .section-header a {
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .catalog {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .product {
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        overflow: hidden;
+      }
+
+      .product-image {
+        height: 260px;
+        overflow: hidden;
+        background: #0d0d0f;
+      }
+
+      .product-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .product-body {
+        padding: 18px;
+      }
+
+      .product-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+      }
+
+      .tag-mini {
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 6px 8px;
+        color: var(--muted);
+      }
+
+      .rating {
+        color: #f7c65a;
+        font-size: 0.9rem;
+      }
+
+      .product h3 {
+        margin: 0 0 6px;
+        font-size: 1.35rem;
+      }
+
+      .product p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .product-footer {
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .price {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+        margin-top: 12px;
+      }
+
+      .feature {
+        background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.015));
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 22px;
+      }
+
+      .feature-icon {
+        width: 52px;
+        height: 52px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 90, 54, 0.12);
+        border: 1px solid rgba(255, 90, 54, 0.3);
+        border-radius: 14px;
+        font-size: 1.5rem;
+        margin-bottom: 16px;
+      }
+
+      .feature h3 {
+        margin: 0 0 8px;
+        font-size: 1.18rem;
+      }
+
+      .feature p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .newsletter {
+        margin: 40px auto 80px;
+        padding: 32px;
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        background: linear-gradient(135deg, rgba(255, 90, 54, 0.12), rgba(255,255,255,0.02));
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+      }
+
+      .newsletter h3 {
+        margin: 0 0 8px;
+        font-size: clamp(1.6rem, 3vw, 2.5rem);
+        letter-spacing: -0.04em;
+      }
+
+      .newsletter p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .newsletter-form {
+        display: flex;
+        gap: 12px;
+        width: min(100%, 480px);
+      }
+
+      .newsletter-form input {
+        flex: 1;
+        min-width: 0;
+        border: 1px solid var(--line);
+        background: rgba(13,13,15,0.75);
+        border-radius: 999px;
+        padding: 14px 18px;
+        color: var(--text);
+        outline: none;
+      }
+
+      footer {
+        border-top: 1px solid var(--line);
+        padding: 28px 0 40px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 16px;
+        flex-wrap: wrap;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .catalog,
+        .features,
+        .newsletter {
+          grid-template-columns: 1fr;
+          display: grid;
+        }
+
+        .newsletter {
+          display: grid;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+          gap: 16px;
+        }
+
+        .nav-links {
+          width: 100%;
+          justify-content: center;
+          order: 3;
+          flex-wrap: wrap;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .nav-actions {
+          width: 100%;
+          justify-content: space-between;
+        }
+
+        .btn {
+          flex: 1;
+        }
+
+        .newsletter-form {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">
+          <div class="brand-mark">V</div>
+          <span>Volt Guitars</span>
+        </div>
+
+        <nav class="nav-links" aria-label="Navegación principal">
+          <a href="#inicio">Inicio</a>
+          <a href="#catalogo">Catálogo</a>
+          <a href="#marcas">Marcas</a>
+          <a href="#servicios">Servicios</a>
+          <a href="#blog">Blog</a>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn btn-secondary">Carrito (2)</button>
+          <button class="btn btn-primary">Comprar ahora</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <span class="eyebrow">Estilo. Potencia. Precisión.</span>
+            <h1>Guitarras eléctricas para tocar sin límites.</h1>
+            <p class="lead">
+              Descubre instrumentos diseñados para artistas exigentes: tonos cálidos,
+              ataques agresivos y una sensación premium en cada nota.
+            </p>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#catalogo">Ver catálogo</a>
+              <a class="btn btn-secondary" href="#servicios">¿Por qué elegirnos?</a>
+            </div>
+
+            <div class="trust">
+              <div>
+                <strong>12k+</strong>
+                guitarras vendidas
+              </div>
+              <div>
+                <strong>4.9/5</strong>
+                reseñas de clientes
+              </div>
+              <div>
+                <strong>24h</strong>
+                envío express
+              </div>
+            </div>
+          </div>
+
+          <div class="guitar-visual" aria-label="Modelo premium de guitarra eléctrica">
+            <div class="orb"></div>
+            <div class="guitar-card">
+              <div class="tag">Nuevo lanzamiento</div>
+              <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=900&q=80" alt="Guitarra eléctrica roja" />
+              <div class="price-badge">
+                <small>Desde</small>
+                <strong>$899</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="catalogo" class="section container">
+        <div class="section-header">
+          <h2>Catálogo destacado</h2>
+          <a href="#">Ver todo</a>
+        </div>
+
+        <div class="catalog">
+          <article class="product">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1556449895-a33c9dba33dd?auto=format&fit=crop&w=900&q=80" alt="Guitarra Ibanez" />
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span class="tag-mini">Ibanez</span>
+                <span class="rating">★★★★★</span>
+              </div>
+              <h3>RG550</h3>
+              <p>Cuello de arce, doble humbucker y un ataque rápido ideal para rock y metal.</p>
+              <div class="product-footer">
+                <span class="price">$1,299</span>
+                <button class="btn btn-primary">Agregar</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1525201548942-d8732f6617a0?auto=format&fit=crop&w=900&q=80" alt="Guitarra Fender" />
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span class="tag-mini">Fender</span>
+                <span class="rating">★★★★★</span>
+              </div>
+              <h3>Stratocaster</h3>
+              <p>Clásico versátil con brillo excepcional, perfecto para blues, pop y rock.</p>
+              <div class="product-footer">
+                <span class="price">$1,499</span>
+                <button class="btn btn-primary">Agregar</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="product">
+            <div class="product-image">
+              <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?auto=format&fit=crop&w=900&q=80" alt="Guitarra ESP" />
+            </div>
+            <div class="product-body">
+              <div class="product-meta">
+                <span class="tag-mini">ESP</span>
+                <span class="rating">★★★★★</span>
+              </div>
+              <h3>Ltd EC-1000</h3>
+              <p>Sonido contundente, hardware sólido y estética premium para escenarios intensos.</p>
+              <div class="product-footer">
+                <span class="price">$1,899</span>
+                <button class="btn btn-primary">Agregar</button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="servicios" class="section container">
+        <div class="section-header">
+          <h2>Por qué tocar con Volt</h2>
+        </div>
+
+        <div class="features">
+          <article class="feature">
+            <div class="feature-icon">🎸</div>
+            <h3>Calidad profesional</h3>
+            <p>Instrumentos seleccionados con acabados premium y componentes de alto rendimiento.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">⚡</div>
+            <h3>Sonido potente</h3>
+            <p>Pastillas de alta salida y afinación precisa para un rendimiento impecable en vivo.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">🛡️</div>
+            <h3>Garantía total</h3>
+            <p>Protegemos cada compra con soporte técnico, ajuste y servicio postventa.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="newsletter">
+          <div>
+            <h3>Recibe ofertas exclusivas</h3>
+            <p>Suscríbete y entérate de lanzamientos, descuentos y accesorios.</p>
+          </div>
+
+          <form class="newsletter-form" action="#" method="post">
+            <input type="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico" />
+            <button class="btn btn-primary" type="submit">Suscribirme</button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container footer-inner">
+        <div class="brand">
+          <div class="brand-mark">V</div>
+          <span>Volt Guitars</span>
+        </div>
+        <span>© 2026 Volt Guitars. Todos los derechos reservados.</span>
+      </div>
+    </footer>
+  </body>
+</html>
